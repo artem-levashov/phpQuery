@@ -46,8 +46,7 @@ abstract class phpQuery {
 	 *
 	 * @var unknown_type
 	 */
-	public static $defaultDoctype = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">';
+	public static $defaultDoctype = '<!DOCTYPE html>';
 	public static $defaultCharset = 'UTF-8';
 	/**
 	 * Static namespace for plugins.
