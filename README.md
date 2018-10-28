@@ -27,6 +27,9 @@ in github for any later changes.
 I tried to include all fixes of all brunches until today.
 I removed multibyte string Functions.
 
+- Johntor 2018
+
+
 Using phpQuery
 
 
