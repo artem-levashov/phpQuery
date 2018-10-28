@@ -87,8 +87,9 @@ class DOMEvent {
 		foreach($data as $k => $v) {
 			$this->$k = $v;
 		}
-		if (! $this->timeStamp)
+		if (!$this->timeStamp) {
 			$this->timeStamp = time();
+		}
 	}
 	/**
 	 * Cancels the event (if it is cancelable).
