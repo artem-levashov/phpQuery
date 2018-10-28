@@ -23,9 +23,11 @@ in github for any later changes.
 
 - P'unk Avenue
 
-"More fixes updates 2018"
-I tried to include all fixes of all brunches until today.
-I removed multibyte string Functions.
+## "More fixes updates 2018"
+1. I tried to include all fixes of all brunches until today.
+2. I removed multibyte string Functions.
+3. Included the file jphpQuery.php that can be used alone.  
+
 
 - Johntor 2018
 
