@@ -28,7 +28,7 @@ abstract class phpQueryEvents {
 			$name = $type;
 		}
 
-		if (! $node) {
+		if (!$node) {
 			if (self::issetGlobal($documentID, $type)) {
 				$pq = phpQuery::getDocument($documentID);
 				// TODO check add($pq->document)
@@ -49,14 +49,14 @@ abstract class phpQueryEvents {
 				));
 			}
 			$i = 0;
-			while($node) {
+			while ($node) {
 				// TODO whois
-				phpQuery::debug("Triggering ".($i?"bubbled ":'')."event '{$type}' on "
-					."node \n");//.phpQueryObject::whois($node)."\n");
+				phpQuery::debug("Triggering " . ($i ? "bubbled " : '') . "event '{$type}' on "
+					. "node \n"); //.phpQueryObject::whois($node)."\n");
 				$event->currentTarget = $node;
 				$eventNode = self::getNode($documentID, $node);
 				if (isset($eventNode->eventHandlers)) {
-					foreach($eventNode->eventHandlers as $eventType => $handlers) {
+					foreach ($eventNode->eventHandlers as $eventType => $handlers) {
 						$eventNamespace = null;
 						if (strpos($type, '.') !== false) {
 							list($eventName, $eventNamespace) = explode('.', $eventType);
@@ -71,11 +71,11 @@ abstract class phpQueryEvents {
 						if ($namespace && $eventNamespace && $namespace != $eventNamespace) {
 							continue;
 						}
-						foreach($handlers as $handler) {
+						foreach ($handlers as $handler) {
 							phpQuery::debug("Calling event handler\n");
 							$event->data = $handler['data']
-								? $handler['data']
-								: null;
+							? $handler['data']
+							: null;
 							$params = array_merge(array($event), $data);
 							$return = phpQuery::callbackRun($handler['callback'], $params);
 							if ($return === false) {
@@ -111,9 +111,9 @@ abstract class phpQueryEvents {
 		phpQuery::debug("Binding '$type' event");
 		$documentID = phpQuery::getDocumentID($document);
 //		if (is_null($callback) && is_callable($data)) {
-//			$callback = $data;
-//			$data = null;
-//		}
+		//			$callback = $data;
+		//			$data = null;
+		//		}
 		$eventNode = self::getNode($documentID, $node);
 		if (!$eventNode) {
 			$eventNode = self::setNode($documentID, $node);
@@ -162,12 +162,12 @@ abstract class phpQueryEvents {
 	protected static function setNode($documentID, $node) {
 		phpQuery::$documents[$documentID]->eventsNodes[] = $node;
 		return phpQuery::$documents[$documentID]->eventsNodes[
-			count(phpQuery::$documents[$documentID]->eventsNodes)-1
+			count(phpQuery::$documents[$documentID]->eventsNodes) - 1
 		];
 	}
 	protected static function issetGlobal($documentID, $type) {
 		return isset(phpQuery::$documents[$documentID])
-			? in_array($type, phpQuery::$documents[$documentID]->eventsGlobal)
-			: false;
+		? in_array($type, phpQuery::$documents[$documentID]->eventsGlobal)
+		: false;
 	}
 }
