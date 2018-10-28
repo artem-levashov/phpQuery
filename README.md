@@ -23,6 +23,10 @@ in github for any later changes.
 
 - P'unk Avenue
 
+"More fixes updates 2018"
+I tried to include all fixes of all brunches until today.
+I removed multibyte string Functions.
+
 Using phpQuery
 
 
