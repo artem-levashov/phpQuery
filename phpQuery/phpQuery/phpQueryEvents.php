@@ -22,10 +22,12 @@ abstract class phpQueryEvents {
 		// trigger: function(type, data, elem, donative, extra) {
 		$documentID = phpQuery::getDocumentID($document);
 		$namespace = null;
-		if (strpos($type, '.') !== false)
+		if (strpos($type, '.') !== false) {
 			list($name, $namespace) = explode('.', $type);
-		else
+		} else {
 			$name = $type;
+		}
+
 		if (! $node) {
 			if (self::issetGlobal($documentID, $type)) {
 				$pq = phpQuery::getDocument($documentID);
@@ -56,14 +58,19 @@ abstract class phpQueryEvents {
 				if (isset($eventNode->eventHandlers)) {
 					foreach($eventNode->eventHandlers as $eventType => $handlers) {
 						$eventNamespace = null;
-						if (strpos($type, '.') !== false)
+						if (strpos($type, '.') !== false) {
 							list($eventName, $eventNamespace) = explode('.', $eventType);
-						else
+						} else {
 							$eventName = $eventType;
-						if ($name != $eventName)
+						}
+
+						if ($name != $eventName) {
 							continue;
-						if ($namespace && $eventNamespace && $namespace != $eventNamespace)
+						}
+
+						if ($namespace && $eventNamespace && $namespace != $eventNamespace) {
 							continue;
+						}
 						foreach($handlers as $handler) {
 							phpQuery::debug("Calling event handler\n");
 							$event->data = $handler['data']
@@ -78,8 +85,10 @@ abstract class phpQueryEvents {
 					}
 				}
 				// to bubble or not to bubble...
-				if (! $event->bubbles)
+				if (!$event->bubbles) {
 					break;
+				}
+
 				$node = $node->parentNode;
 				$i++;
 			}
@@ -106,10 +115,12 @@ abstract class phpQueryEvents {
 //			$data = null;
 //		}
 		$eventNode = self::getNode($documentID, $node);
-		if (! $eventNode)
+		if (!$eventNode) {
 			$eventNode = self::setNode($documentID, $node);
-		if (!isset($eventNode->eventHandlers[$type]))
+		}
+		if (!isset($eventNode->eventHandlers[$type])) {
 			$eventNode->eventHandlers[$type] = array();
+		}
 		$eventNode->eventHandlers[$type][] = array(
 			'callback' => $callback,
 			'data' => $data,
@@ -130,18 +141,22 @@ abstract class phpQueryEvents {
 		$eventNode = self::getNode($documentID, $node);
 		if (is_object($eventNode) && isset($eventNode->eventHandlers[$type])) {
 			if ($callback) {
-				foreach($eventNode->eventHandlers[$type] as $k => $handler)
-					if ($handler['callback'] == $callback)
+				foreach ($eventNode->eventHandlers[$type] as $k => $handler) {
+					if ($handler['callback'] == $callback) {
 						unset($eventNode->eventHandlers[$type][$k]);
+					}
+				}
+
 			} else {
 				unset($eventNode->eventHandlers[$type]);
 			}
 		}
 	}
 	protected static function getNode($documentID, $node) {
-		foreach(phpQuery::$documents[$documentID]->eventsNodes as $eventNode) {
-			if ($node->isSameNode($eventNode))
+		foreach (phpQuery::$documents[$documentID]->eventsNodes as $eventNode) {
+			if ($node->isSameNode($eventNode)) {
 				return $eventNode;
+			}
 		}
 	}
 	protected static function setNode($documentID, $node) {
